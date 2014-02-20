@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stack Overflow AJAX Demo</title>
+	<link rel="stylesheet" href="main.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="app.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="intro">
+			<div class="left stack-image"></div>
+			<div class="explanation">
+				<h1>StackOverflow Reputation Builder</h1>
+				<p>This app locates (up to 30) unanswered questions on Stack Overflow for given topics. Find unanswered questions for a topic you know about, write quality answers, and watch your reputation go up.</p>
+			</div>
+		</div>
+		<div class="stack">
+			<p>Search StackOverflow for unanswered questions by tag. If you want more than one tag, separate tags with a semi-colon.</p>
+			<form class="unanswered-getter" onsubmit="return false;">
+				<input type="text" placeholder="Semi-colon separated list of tags" name="tags" size="75" autofocus required>
+				<input type="submit" value="Submit">
+			</form>
+			<div class="results-container">
+				<div class="search-results"></div>
+				<div class="results">
+			</div>
+		</div>
+	</div>
+	<div class="templates hidden">
+		<dl class="result question">
+			<dt>Question</dt>
+				<dd class="question-text"><a href="" target="_blank"></a></dd>
+			<dt>Asked</dt>
+				<dd class="asked-date"></dd>
+			<dt>Viewed</dt>
+				<dd class="viewed"></dd>
+			<dt>Asker</dt>
+				<dd class="asker"></dd>
+		</dl>
+	</div>
+</body>
+</html>
