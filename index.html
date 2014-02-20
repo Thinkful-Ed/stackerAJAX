@@ -13,19 +13,27 @@
 			<div class="left stack-image"></div>
 			<div class="explanation">
 				<h1>StackOverflow Reputation Builder</h1>
-				<p>This app locates (up to 30) unanswered questions on Stack Overflow for given topics. Find unanswered questions for a topic you know about, write quality answers, and watch your reputation go up.</p>
+				<p>This app lets you search by topic for unanswered questions on Stack Overflow to help you build your reputation.  Find unanswered questions for a topic you know about, write quality answers, and watch your reputation go up.</p>
+				<p>Sometimes, you also need some inspiration. This page also lets you search for the top answerers for a tag. If you want to rise to the top ranks for a topic, see how many reputation points you'll need to aim for!</p>
 			</div>
 		</div>
-		<div class="stack">
-			<p>Search StackOverflow for unanswered questions by tag. If you want more than one tag, separate tags with a semi-colon.</p>
+		<hr>
+		<div class="stack">	
+			<h3>Get Unanswered Questions</h3>
+			<p>Find unanswered questions by tag. For multiple tags, use a semi-colon to separate.</p>
 			<form class="unanswered-getter" onsubmit="return false;">
-				<input type="text" placeholder="Semi-colon separated list of tags" name="tags" size="75" autofocus required>
+				<input type="text" placeholder='e.g., "HTML" or "HTML;CSS"' name="tags" size="30" autofocus required>
 				<input type="submit" value="Submit">
 			</form>
-			<div class="results-container">
-				<div class="search-results"></div>
-				<div class="results">
-			</div>
+			<h3>View the Top Answerers for a Tag</h3>
+			<form class="inspiration-getter" onsubmit="return false;">
+				<input type="text" placeholder="e.g., jQuery" name="answerers" size="30" autofocus required>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<div class="results-container">
+			<div class="search-results"></div>
+			<div class="results">
 		</div>
 	</div>
 	<div class="templates hidden">

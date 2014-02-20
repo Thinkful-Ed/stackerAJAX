@@ -71,23 +71,22 @@ var getUnanswered = function(tags) {
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
+		})
+	.done(function(result){
+		var searchResults = yieldSearchResults(request.tagged, result.items.length);
 
-		// this gets run whenever the 
-		success: function(result){
-			var searchResults = yieldSearchResults(request.tagged, result.items.length);
+		$('.search-results').html(searchResults);
 
-			$('.search-results').html(searchResults);
-
-			$.each(result.items, function(i, item) {
-				var question = yieldQuestion(item);
-				$('.results').append(question);
-			});
-		},
-		error: function(jqXHR, error, errorThrown){
-			var errorElem = yieldError(error);
-			$('.search-results').append(errorElem);
-		}
+		$.each(result.items, function(i, item) {
+			var question = yieldQuestion(item);
+			$('.results').append(question);
+		});
+	})
+	.fail(function(jqXHR, error, errorThrown){
+		var errorElem = yieldError(error);
+		$('.search-results').append(errorElem);
 	});
 };
+
 
 
