@@ -19,7 +19,8 @@
 		<div class="stack">
 			<p>Search StackOverflow for unanswered questions by tag. If you want more than one tag, separate tags with a semi-colon.</p>
 			<form class="unanswered-getter" onsubmit="return false;">
-				<input type="text" placeholder="Semi-colon separated list of tags" name="tags" size="75" autofocus required>
+				<input type="text" placeholder="Semi-colon separated list of tags" name="tags" size="75" autofocus required><br>
+				<input type="radio" name="bounty" value="bounty">Only search for questions with active <a href="http://meta.stackoverflow.com/questions/16065/how-does-the-bounty-system-work" target="_blank">bounties</a> 
 				<input type="submit" value="Submit">
 			</form>
 			<div class="results-container">
@@ -39,6 +40,9 @@
 			<dt>Asker</dt>
 				<dd class="asker"></dd>
 		</dl>
+		<div class="error">
+			<p>Uh-oh! Something went wrong with your request. Here's what we know:</p>
+		</div>
 	</div>
 </body>
 </html>
