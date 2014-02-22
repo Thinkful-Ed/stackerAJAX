@@ -10,7 +10,7 @@ $(document).ready( function() {
 
 // this function takes the question object returned by StackOverflow 
 // and creates new result to be appended to DOM
-var yieldQuestion = function(question) {
+var showQuestion = function(question) {
 	
 	// clone our result template code
 	var result = $('.templates .question').clone();
@@ -44,13 +44,13 @@ var yieldQuestion = function(question) {
 
 // this function takes the results object from StackOverflow
 // and creates info about search results to be appended to DOM
-var yieldSearchResults = function(query, resultNum) {
+var showSearchResults = function(query, resultNum) {
 	var results = resultNum + ' results for <strong>' + query;
 	return results;
 };
 
 // takes error string and turns it into displayable DOM element
-var yieldError = function(error){
+var showError = function(error){
 	var errorElem = $('.templates .error').clone();
 	var errorText = '<p>' + error + '</p>';
 	errorElem.append(errorText);
@@ -71,23 +71,22 @@ var getUnanswered = function(tags) {
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
+		})
+	.done(function(result){
+		var searchResults = showSearchResults(request.tagged, result.items.length);
 
-		// this gets run whenever the 
-		success: function(result){
-			var searchResults = yieldSearchResults(request.tagged, result.items.length);
+		$('.search-results').html(searchResults);
 
-			$('.search-results').html(searchResults);
-
-			$.each(result.items, function(i, item) {
-				var question = yieldQuestion(item);
-				$('.results').append(question);
-			});
-		},
-		error: function(jqXHR, error, errorThrown){
-			var errorElem = yieldError(error);
-			$('.search-results').append(errorElem);
-		}
+		$.each(result.items, function(i, item) {
+			var question = showQuestion(item);
+			$('.results').append(question);
+		});
+	})
+	.fail(function(jqXHR, error, errorThrown){
+		var errorElem = showError(error);
+		$('.search-results').append(errorElem);
 	});
 };
+
 
 

@@ -2,6 +2,7 @@
 	margin: 3em auto;
 	width: 600px;
 }
+
 .hidden {
 	display: none;
 }
@@ -23,14 +24,14 @@
 }
 
 .intro {
-	margin-bottom: 4em;
+	margin-bottom: 1em;
 }
 .stack {
 	clear: both;
 }
 
-.stack form {
-	margin-bottom: 2em;
+.inspiration { 
+	margin-left: 3em;
 }
 
 .result {
