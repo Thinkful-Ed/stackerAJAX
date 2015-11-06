@@ -15,7 +15,7 @@ var showQuestion = function(question) {
 	var date = new Date(1000*question.creation_date);
 	asked.text(date.toString());
 
-	// set the #viewed for question property in result
+	// set the .viewed for question property in result
 	var viewed = result.find('.viewed');
 	viewed.text(question.view_count);
 
