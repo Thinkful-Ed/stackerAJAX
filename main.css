@@ -16,16 +16,17 @@
 	width: 200px;
 	height: 200px;
 	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  margin-right: 1em;
-  border-radius: 5px;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-right: 1em;
+	border-radius: 5px;
 }
 
 .intro {
 	margin-bottom: 1em;
 }
+
 .stack {
 	clear: both;
 }
