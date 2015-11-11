@@ -12,7 +12,7 @@
 }
 
 .stack-image {
-	background: url('images/stack-icon.png') no-repeat center center;
+	background: url('../images/stack-icon.png') no-repeat center center;
 	width: 200px;
 	height: 200px;
 	-webkit-background-size: cover;

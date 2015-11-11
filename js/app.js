@@ -1,4 +1,4 @@
-// this function takes the question object returned by StackOverflow 
+// this function takes the question object returned by the StackOverflow request
 // and returns new result to be appended to DOM
 var showQuestion = function(question) {
 	
@@ -60,20 +60,21 @@ var getUnanswered = function(tags) {
 	$.ajax({
 		url: "http://api.stackexchange.com/2.2/questions/unanswered",
 		data: request,
-		dataType: "jsonp",
+		dataType: "jsonp",//use jsonp to avoid cross origin issues
 		type: "GET",
 		})
-		.done(function(result){
+		.done(function(result){ //this waits for the ajax to return with a succesful promise object
 			var searchResults = showSearchResults(request.tagged, result.items.length);
 
 			$('.search-results').html(searchResults);
-
+			//$.each is a higher order function. It takes an array and a function as an argument.
+			//The function is executed once for each item in the array.
 			$.each(result.items, function(i, item) {
 				var question = showQuestion(item);
 				$('.results').append(question);
 			});
 		})
-		.fail(function(jqXHR, error){
+		.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
 			var errorElem = showError(error);
 			$('.search-results').append(errorElem);
 		});
