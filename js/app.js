@@ -83,7 +83,8 @@ var getUnanswered = function(tags) {
 
 
 $(document).ready( function() {
-	$('.unanswered-getter').submit( function(){
+	$('.unanswered-getter').submit( function(e){
+		e.preventDefault();
 		// zero out results if previous search has run
 		$('.results').html('');
 		// get the value of the tags the user submitted
