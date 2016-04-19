@@ -81,6 +81,11 @@ var getUnanswered = function(tags) {
 	});
 };
 
+// takes user results for a tag and finds top answerers for it
+var getTopAnswerers = function(tags) {
+
+};
+
 
 $(document).ready( function() {
 	$('.unanswered-getter').submit( function(e){
