@@ -3,7 +3,7 @@
 	width: 600px;
 }
 
-.hidden {
+[hidden] {
 	display: none;
 }
 
