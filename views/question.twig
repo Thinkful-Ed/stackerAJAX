@@ -1,0 +1,12 @@
+<dl class="result question">
+  <dt>Question</dt>
+    <dd class="question-text"><a href="{{ link }}" target="_blank">{{ title }}</a></dd>
+  <dt>Asked</dt>
+    <dd class="asked-date">{{ creation_date }}</dd>
+  <dt>Viewed</dt>
+    <dd class="viewed">{{ view_count }}</dd>
+  <dt>Asker</dt>
+    <dd class="asker">
+      <p>Name: <a target="_blank" href="http://stackoverflow.com/users/{{ owner.user_id }}">{{ owner.display_name }}</a></p>
+    </dd>
+</dl>
