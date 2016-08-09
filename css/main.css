@@ -3,7 +3,7 @@
 	width: 600px;
 }
 
-.hidden {
+[hidden] {
 	display: none;
 }
 
@@ -31,7 +31,7 @@
 	clear: both;
 }
 
-.inspiration { 
+.inspiration {
 	margin-left: 3em;
 }
 
