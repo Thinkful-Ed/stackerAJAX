@@ -20,7 +20,7 @@ function showQuestion(question){
 	//Set asker properties
 	var asker = result.find('.asker');
 	asker.html(
-    'Name: <a target="_blank" ' + 'href=http://stackoverflow.com/users/' + question.owner.user_id + ' >' + 
+    'Name: <a target="_blank" ' + 'href=https://stackoverflow.com/users/' + question.owner.user_id + ' >' + 
     question.owner.display_name + '</a><br>' + 'Reputation: ' + question.owner.reputation
 	);
 
@@ -50,7 +50,7 @@ function getUnansweredQs(tag) {
 	};
 	
 	$.ajax({
-		url: "http://api.stackexchange.com/2.2/questions/unanswered",
+		url: "https://api.stackexchange.com/2.2/questions/unanswered",
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
@@ -104,7 +104,7 @@ function getTopUser(tag){
   };
 
   $.ajax({
-    url: "http://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time",
+    url: "https://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time",
     data: request,
     dataType: "jsonp",
     type: "GET",
