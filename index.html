@@ -1,32 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Stack Overflow AJAX Demo</title>
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<div class="container">
 		<div class="intro">
-			<div class="left stack-image"></div>
+      <img id="stack-image" src="images/stack-icon.png" />
 			<div class="explanation">
-				<h1>StackOverflow Reputation Builder</h1>
-				<p>This app lets you search by topic for unanswered questions on Stack Overflow to help you build your reputation.  Find unanswered questions for a topic you know about, write quality answers, and watch your reputation go up.</p>
-				<p>Sometimes, you also need some inspiration. This page also lets you search for the top answerers for a tag. If you want to rise to the top ranks for a topic, see how many reputation points you'll need to aim for!</p>
+				<h1 id="logo">StackOverflow<br>Reputation Builder</h1>
+				<p>Search for new questions to answer on Stack Overflow and build your user reputation.</p>
+        <p>Find unanswered questions about a topic familiar to you, help out other users by answering the ones you understand, and watch your reputation grow in the community.</p>
+				<p>Need some inspiration? Look up top answerers for a specific topic. Check out how they answer questions and how many reputation points you'll need to aim for to join their ranks!</p>
 			</div>
 		</div>
 		<hr>
 		<div class="stack">	
-			<h3>Get Unanswered Questions</h3>
+			<h3>> Get Unanswered Questions</h3>
 			<p>Find unanswered questions by tag. For multiple tags, use a semi-colon to separate.</p>
 			<form class="unanswered-getter">
-				<input type="text" placeholder='e.g., "HTML" or "HTML;CSS"' name="tags" size="30" autofocus required>
-				<input type="submit" value="Submit">
+				<input type="text" placeholder='e.g. "HTML" or "HTML;CSS"' name="tag" size="30" autofocus required>
+				<input type="submit" value="Search">
 			</form>
-			<h3>View the Top Answerers for a Tag</h3>
+			<h3>> View the Top Answerers for a Tag</h3>
 			<form class="inspiration-getter">
-				<input type="text" placeholder="e.g., jQuery" name="answerers" size="30"  required>
-				<input type="submit" value="Submit">
+				<input type="text" placeholder="e.g. jQuery" name="answerers" size="30"  required>
+				<input type="submit" value="Search">
 			</form>
 		</div>
 		<div class="results-container">
@@ -36,15 +38,28 @@
 	</div>
 	<div class="templates hidden">
 		<dl class="result question">
-			<dt>Question</dt>
+			<dt>Question -</dt>
 				<dd class="question-text"><a href="" target="_blank"></a></dd>
-			<dt>Asked</dt>
+			<dt>Asked - </dt>
 				<dd class="asked-date"></dd>
-			<dt>Viewed</dt>
+			<dt>View count -</dt>
 				<dd class="viewed"></dd>
-			<dt>Asker</dt>
+			<dt>Asked by -</dt>
 				<dd class="asker"></dd>
 		</dl>
+		<dl class="result topuser">
+      <img class="userPic" src="">
+			<dt>Name - </dt>
+				<dd class="name-text"><a href="" target="_blank"></a></dd>
+			<dt>Reputation -</dt>
+				<dd class="reputation"></dd>
+			<dt>User type -</dt>
+				<dd class="user_type"></dd>
+			<dt>Post count -</dt>
+				<dd class="post_count"></dd>
+      <dt>Total score -</dt>
+        <dd class="score"></dd>
+		</dl>		
 		<div class="error">
 			<p>Uh-oh! Something went wrong with your request. Here's what we know:</p>
 		</div>
