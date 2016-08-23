@@ -56,6 +56,7 @@ function getUnansweredQs(tag) {
 		type: "GET",
 	})
 	.done(function(result){
+    console.log(result);
 		var searchResults = showSearchResults(request.tagged, result.items.length);
 		$('.search-results').html(searchResults);
 		$.each(result.items, function(i, item) {
@@ -83,14 +84,11 @@ var showTopUser = function(topuser) {
   var reputation = result.find('.reputation');
   reputation.text(topuser.user.reputation);
 
-  var user_type = result.find('.user_type');
-  user_type.text(topuser.user.user_type); 
-
   var post_count = result.find('.post_count');
   post_count.text(topuser.post_count);
 
-  var score = result.find('.score');
-  score.text(topuser.score);
+  var user_type = result.find('.user_type');
+  user_type.text(topuser.user.user_type); 
 
   return result;
 }
@@ -103,16 +101,20 @@ function getTopUser(tag){
   site: 'stackoverflow'
   };
 
+  var url = "https://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time";
+
   $.ajax({
-    url: "https://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time",
+    url: url,
     data: request,
     dataType: "jsonp",
     type: "GET",
   })
   .done(function(result){
+    console.log(result);
     $.each(result.items, function(i, item){
-      var topUser = showTopUser(item);
-      $('.results').append(topUser);
+    var topUser = showTopUser(item);
+    $('.results').append(topUser);
+
     });
   })
   .fail(function(jqXHR, error){
