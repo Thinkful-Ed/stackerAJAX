@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="stack">	
+		<div class="stack">
 			<h3>Get Unanswered Questions</h3>
 			<p>Find unanswered questions by tag. For multiple tags, use a semi-colon to separate.</p>
 			<form class="unanswered-getter">
@@ -25,7 +25,7 @@
 			</form>
 			<h3>View the Top Answerers for a Tag</h3>
 			<form class="inspiration-getter">
-				<input type="text" placeholder="e.g., jQuery" name="answerers" size="30"  required>
+				<input type="text" placeholder="e.g., jQuery" name="answerer" size="30" autofocus required>
 				<input type="submit" value="Submit">
 			</form>
 		</div>
@@ -44,6 +44,16 @@
 				<dd class="viewed"></dd>
 			<dt>Asker</dt>
 				<dd class="asker"></dd>
+		</dl>
+		<dl class="answerer result">
+			<dt>Answerer</dt>
+				<dd class="answerer-text"><a href="" target="_blank"></a></dd>
+			<dt>Post Count</dt>
+				<dd class="post-count"></dd>
+			<dt>Reputation</dt>
+				<dd class="reputation"></dd>
+			<dt>Score</dt>
+				<dd class="score"></dd>
 		</dl>
 		<div class="error">
 			<p>Uh-oh! Something went wrong with your request. Here's what we know:</p>
