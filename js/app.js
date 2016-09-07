@@ -1,94 +1,147 @@
-// this function takes the question object returned by the StackOverflow request
-// and returns new result to be appended to DOM
-var showQuestion = function(question) {
-	
-	// clone our result template code
+//Show unanswered question results from AJAX call
+function showQuestion(question){
+	//Clone hidden question result template
 	var result = $('.templates .question').clone();
-	
-	// Set the question properties in result
+
+	//Set question title and link properties
 	var questionElem = result.find('.question-text a');
 	questionElem.attr('href', question.link);
 	questionElem.text(question.title);
 
-	// set the date asked property in result
+	//Set asked date property
 	var asked = result.find('.asked-date');
 	var date = new Date(1000*question.creation_date);
 	asked.text(date.toString());
 
-	// set the .viewed for question property in result
+	//Set view count property
 	var viewed = result.find('.viewed');
 	viewed.text(question.view_count);
 
-	// set some properties related to asker
+	//Set asker properties
 	var asker = result.find('.asker');
-	asker.html('<p>Name: <a target="_blank" '+
-		'href=http://stackoverflow.com/users/' + question.owner.user_id + ' >' +
-		question.owner.display_name +
-		'</a></p>' +
-		'<p>Reputation: ' + question.owner.reputation + '</p>'
+	asker.html(
+    'Name: <a target="_blank" ' + 'href=https://stackoverflow.com/users/' + question.owner.user_id + ' >' + 
+    question.owner.display_name + '</a><br>' + 'Reputation: ' + question.owner.reputation
 	);
 
 	return result;
 };
 
-
-// this function takes the results object from StackOverflow
-// and returns the number of results and tags to be appended to DOM
-var showSearchResults = function(query, resultNum) {
-	var results = resultNum + ' results for <strong>' + query + '</strong>';
+//Show number of results for search term
+function showSearchResults(searchTerm, resultNumber){
+	var results = '<h3>> ' + resultNumber + ' unanswered questions about "' + searchTerm + '"</h3>';
 	return results;
 };
 
-// takes error string and turns it into displayable DOM element
-var showError = function(error){
+//Show error message if AJAX call fails
+function showError(error){
 	var errorElem = $('.templates .error').clone();
 	var errorText = '<p>' + error + '</p>';
 	errorElem.append(errorText);
 };
 
-// takes a string of semi-colon separated tags to be searched
-// for on StackOverflow
-var getUnanswered = function(tags) {
-	
-	// the parameters we need to pass in our request to StackOverflow's API
+//AJAX call for unanswered questions
+function getUnansweredQs(tag) {
 	var request = { 
-		tagged: tags,
+		tagged: tag,
 		site: 'stackoverflow',
 		order: 'desc',
 		sort: 'creation'
 	};
 	
 	$.ajax({
-		url: "http://api.stackexchange.com/2.2/questions/unanswered",
+		url: "https://api.stackexchange.com/2.2/questions/unanswered",
 		data: request,
-		dataType: "jsonp",//use jsonp to avoid cross origin issues
+		dataType: "jsonp",
 		type: "GET",
 	})
-	.done(function(result){ //this waits for the ajax to return with a succesful promise object
+	.done(function(result){
+    console.log(result);
 		var searchResults = showSearchResults(request.tagged, result.items.length);
-
 		$('.search-results').html(searchResults);
-		//$.each is a higher order function. It takes an array and a function as an argument.
-		//The function is executed once for each item in the array.
 		$.each(result.items, function(i, item) {
 			var question = showQuestion(item);
 			$('.results').append(question);
 		});
 	})
-	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
+	.fail(function(jqXHR, error){
 		var errorElem = showError(error);
 		$('.search-results').append(errorElem);
 	});
 };
 
+//Show top user results for specific tags from AJAX call
+var showTopUser = function(topuser) {
+  var result = $('.templates .topuser').clone();
 
-$(document).ready( function() {
-	$('.unanswered-getter').submit( function(e){
-		e.preventDefault();
-		// zero out results if previous search has run
+  var userElem = result.find('.name-text a');
+  userElem.attr('href', topuser.user.link);
+  userElem.text(topuser.user.display_name);
+
+  var userPic = result.find('.userPic');
+  userPic.attr('src', topuser.user.profile_image);
+
+  var reputation = result.find('.reputation');
+  reputation.text(topuser.user.reputation);
+
+  var post_count = result.find('.post_count');
+  post_count.text(topuser.post_count);
+
+  var user_type = result.find('.user_type');
+  user_type.text(topuser.user.user_type); 
+
+  return result;
+}
+
+//AJAX call for top users
+function getTopUser(tag){
+  var request = {
+  page: 1,
+  pagesize: 10,
+  site: 'stackoverflow'
+  };
+
+  var url = "https://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time";
+
+  $.ajax({
+    url: url,
+    data: request,
+    dataType: "jsonp",
+    type: "GET",
+  })
+  .done(function(result){
+    console.log(result);
+    $.each(result.items, function(i, item){
+    var topUser = showTopUser(item);
+    $('.results').append(topUser);
+
+    });
+  })
+  .fail(function(jqXHR, error){
+    var errorElem = showError(error);
+    $('.search-results').append(errorElem);
+  });
+};
+
+$(document).ready(function(){
+	$('.unanswered-getter').submit(function(event){
+		event.preventDefault();
+		//Clear results from previous search
 		$('.results').html('');
-		// get the value of the tags the user submitted
-		var tags = $(this).find("input[name='tags']").val();
-		getUnanswered(tags);
+    $('.search-results').html('');    
+		//Get the value of the tag the user submitted
+		var tag = $(this).find("input[name='tag']").val();
+		getUnansweredQs(tag);
+   $('form.inspiration-getter')[0].reset();
 	});
+
+  $('.inspiration-getter').submit(function(event){
+    event.preventDefault();
+    $('.results').html('');
+    $('.search-results').html('');
+    var tag = $(this).find("input[name='answerers']").val();
+    $('.search-results').html('<h3>> Top 10 answerers for "' + tag + '"</h3>')
+    getTopUser(tag);
+    $('form.unanswered-getter')[0].reset();
+  });  
 });
