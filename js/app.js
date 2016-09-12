@@ -30,6 +30,26 @@ var showQuestion = function(question) {
 
 	return result;
 };
+// Passes in data from API and inserts it into DOM accordingly VIa .text()
+var showAnswer = function(answer){
+	// clone our result template code. Clones the code provided us. Like a copy of the code.
+	var result = $('.templates .answerToQuery').clone();
+	//Finds the display name class and adds text from returned Data from API.
+	var displayName = result.find("display-Name");
+	displayName.text(answer.user.display_name);
+	// Finds userprofile in template. adds in attr
+	var userProfile = result.find(".user-Profile");
+	userProfile.attr("href", answer.user.link);
+	userProfile.find("a").text(answer.user.link);
+	// Same as above. Inserts reputation into DOM.
+	var rep = result.find(".reputation");
+	rep.text(answer.user.reputaion);
+	// Same as above.
+	var rating = result.find(".rating");
+	rating.text(answer.user.rating);
+
+	return result;
+}
 
 
 // this function takes the results object from StackOverflow
@@ -51,10 +71,30 @@ var getInspiration = function(tags){
 	var request = {
 		tagged: tags,
 		site: 'StackOverflow',
-		order: ''
+		period: 'all_time'
+};
 
+$.ajax({
+	// concatenate URL with request.tag
+	url: "http://api.stackexchange.com/2.2/tags/" + request.tag + "/top-answerers/all_time",
+	data: request,
+	dataType: "jsonp",//use jsonp to avoid cross origin issues
+	type: "GET",
+})
 
-}
+.done(function(result){ //this waits for the ajax to return with a succesful promise object
+	var searchResults = showSearchResults(request.tagged, result.items.length);
+
+	$('.search-results').html(searchResults);
+	console.log(result);
+	console.log(searchResults);
+	//$.each is a higher order function. It takes an array and a function as an argument.
+	//The function is executed once for each item in the array.
+	$.each(result.items, function(i, item) {
+		var answer = showAnswer(item);
+		$('.results').append(answer);
+	});
+})
 
 }
 
@@ -108,7 +148,7 @@ $(document).ready( function() {
 		//Zero old results
 		$('.results').html('');
 		//get value from user
-		var tags = $(this).find("input[name='answerers']")val();
-
+		var tag = $(this).find("input[name='answerers']").val();
+		getInspiration(tag);
 	});
 });
