@@ -31,7 +31,7 @@
 	clear: both;
 }
 
-.inspiration { 
+.inspiration {
 	margin-left: 3em;
 }
 
@@ -44,4 +44,7 @@
 .error {
 	background-color: #F78181;
 	padding: 1em;
+}
+.other{
+	background: yellow;
 }

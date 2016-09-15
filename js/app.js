@@ -35,7 +35,7 @@ var showAnswer = function(answer){
 	// clone our result template code. Clones the code provided us. Like a copy of the code.
 	var result = $('.templates .answerToQuery').clone();
 	//Finds the display name class and adds text from returned Data from API.
-	var displayName = result.find("display-Name");
+	var displayName = result.find(".display-Name");
 	displayName.text(answer.user.display_name);
 	// Finds userprofile in template. adds in attr
 	var userProfile = result.find(".user-Profile");
@@ -43,10 +43,10 @@ var showAnswer = function(answer){
 	userProfile.find("a").text(answer.user.link);
 	// Same as above. Inserts reputation into DOM.
 	var rep = result.find(".reputation");
-	rep.text(answer.user.reputaion);
+	rep.text(answer.user.reputation);
 	// Same as above.
 	var rating = result.find(".rating");
-	rating.text(answer.user.rating);
+	rating.text(answer.user.accept_rate);
 
 	return result;
 }
@@ -66,14 +66,14 @@ var showError = function(error){
 	errorElem.append(errorText);
 };
 
-
+// takes a string of semi-colon separated tags to be searched
+// for on StackOverflow
 var getInspiration = function(tags){
 	var request = {
 		tagged: tags,
 		site: 'StackOverflow',
 		period: 'all_time'
 };
-
 $.ajax({
 	// concatenate URL with request.tag
 	url: "http://api.stackexchange.com/2.2/tags/" + request.tag + "/top-answerers/all_time",
@@ -86,8 +86,6 @@ $.ajax({
 	var searchResults = showSearchResults(request.tagged, result.items.length);
 
 	$('.search-results').html(searchResults);
-	console.log(result);
-	console.log(searchResults);
 	//$.each is a higher order function. It takes an array and a function as an argument.
 	//The function is executed once for each item in the array.
 	$.each(result.items, function(i, item) {
@@ -95,7 +93,6 @@ $.ajax({
 		$('.results').append(answer);
 	});
 })
-
 }
 
 // takes a string of semi-colon separated tags to be searched
