@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stack Overflow AJAX Demo</title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<main class="container">
+		<header class="intro">
+			<div class="stack-image">
+				<img src="images/stack-icon.png" alt="Stack Overflow Logo" />
+			</div>
+			<div class="explanation">
+				<h1>StackOverflow Reputation Builder</h1>
+				<p>This app lets you search by topic for unanswered questions on Stack Overflow to help you build your reputation.  Find unanswered questions for a topic you know about, write quality answers, and watch your reputation go up.</p>
+				<p>Sometimes, you also need some inspiration. This page also lets you search for the top answerers for a tag. If you want to rise to the top ranks for a topic, see how many reputation points you'll need to aim for!</p>
+			</div>
+		</header>
+		<hr>
+		<div class="stack">
+			<section>
+				<h3>Get Unanswered Questions</h3>
+				<p>Find unanswered questions by tag. For multiple tags, use a semi-colon to separate.</p>
+				<form action="/" method="post" class="unanswered-getter">
+					<input type="hidden" name="action" value="unanswered">
+					<label for="unanswered">Tag</label>
+					<input id="unanswered" name="tagged" type="text" placeholder='e.g., "HTML" or "HTML;CSS"' name="tags" size="30" autofocus required>
+					<input type="submit" value="Submit">
+				</form>
+			</section>
+			<section>
+				<h3>View the Top Answerers for a Tag</h3>
+				<form action="/" method="post" class="inspiration-getter">
+					<input type="hidden" name="action" value="answerers">
+					<label for="answerers">Tag</label>
+					<input id="answerers" name="tagged" type="text" placeholder="e.g., jQuery" name="answerers" size="30"  required>
+					<input type="submit" value="Submit">
+				</form>
+			</section>
+		</div>
+		<div class="results-container">
+			{% if error %}
+				{% include 'error.twig' %}
+			{% endif %}
+			<div class="search-results">{% if action %}{{ items|length }} results for <strong>{{ tagged }}</strong>{% endif %}</div>
+			<div class="results">
+				<h3>{% if action == 'unanswered' %}Unanswered Questions{% elseif action == 'answerers'%}Top Answerers{% endif %}</h3>
+				{% for item in items %}
+					{% if action == 'unanswered' %}
+						{% include 'question.twig' with item %}
+					{% elseif action == 'answerers' %}
+						{% include 'answerer.twig' with item %}
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+	</div>
+	<div hidden class="templates">
+		{% include 'question.twig' %}
+		{% include 'answerer.twig' %}
+		{% include 'error.twig' %}
+	</div>
+
+	<!-- handy way of loading the most recent version of jQuery but DO NOT USE THIS IN PRODUCTION it will only be cached for ~10 minutes. Instead use a minified and versioned link found at https://code.jquery.com -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
